@@ -7,7 +7,7 @@ import (
 )
 
 func TestBasicRoute(t *testing.T) {
-	req := httptest.NewRequest("GET", "/", nil)
+	_ = httptest.NewRequest("GET", "/", nil)
 	w := httptest.NewRecorder()
 
 	if w.Code != http.StatusOK && w.Code != http.StatusNotFound {

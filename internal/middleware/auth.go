@@ -11,7 +11,7 @@ func Auth(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		header := r.Header.Get("Authorization")
 
-		tokenStr := strings.TimePrefix(header, "Bearer")
+		tokenStr := strings.TrimSpace(strings.TrimPrefix(header, "Bearer"))
 		if tokenStr == "" {
 			http.Error(w, "Unauthorized", 401)
 			return

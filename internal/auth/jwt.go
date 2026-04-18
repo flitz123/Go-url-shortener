@@ -16,7 +16,7 @@ func GenerateToken(user string) (string, error) {
 	return jwt.NewWithClaims(jwt.SigningMethodHS256, claims).SignedString(secret)
 }
 
-func ValidationToken(tokenStr string) (*jwt.token, error) {
+func ValidationToken(tokenStr string) (*jwt.Token, error) {
 	return jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
 		return secret, nil
 	})

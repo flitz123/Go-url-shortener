@@ -11,7 +11,7 @@ import (
 func Setup(h *handlers.Handler) http.Handler {
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("shorten", h.Shorten)
+	mux.HandleFunc("/shorten", h.Shorten)
 	mux.HandleFunc("/", h.Redirect)
 
 	mux.Handle("/secure", middleware.Auth(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {

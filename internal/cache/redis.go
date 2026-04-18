@@ -24,5 +24,5 @@ func (r *RedisCache) Get(key string) (string, error) {
 }
 
 func (r *RedisCache) Set(key, value string) error {
-	r.client.Set(ctx, key, value, 0)
+	return r.client.Set(ctx, key, value, 0).Err()
 }

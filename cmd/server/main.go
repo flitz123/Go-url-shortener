@@ -9,14 +9,12 @@ import (
 
 	"go-url-shortener/internal/cache"
 	"go-url-shortener/internal/handlers"
-	"go-url-shortener/internal/metrics"
+	_ "go-url-shortener/internal/metrics"
 	"go-url-shortener/internal/repository"
 	"go-url-shortener/internal/router"
 )
 
 func main() {
-	metrics.Init()
-
 	db, err := sql.Open("postgres", "postgres://user:password@db:5432/urlshort?sslmode=disable")
 	if err != nil {
 		log.Fatal(err)
@@ -24,7 +22,7 @@ func main() {
 
 	repo := repository.NewPostgresRepo(db)
 	cache := cache.NewRedis()
-	handler := handlers.New(repo, cache)
+	handler := handlers.NewHandler(repo, cache)
 
 	server := &http.Server{
 		Addr:    ":8080",
