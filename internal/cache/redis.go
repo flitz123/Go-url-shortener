@@ -2,6 +2,7 @@ package cache
 
 import (
 	"context"
+	"os"
 
 	"github.com/go-redis/redis/v8"
 )
@@ -13,8 +14,12 @@ type RedisCache struct {
 }
 
 func NewRedis() *RedisCache {
+	address := os.Getenv("REDIS_ADDR")
+	if address == "" {
+		address = "localhost:6379"
+	}
 	rdb := redis.NewClient(&redis.Options{
-		Addr: "redis:6379",
+		Addr: address,
 	})
 	return &RedisCache{client: rdb}
 }

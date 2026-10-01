@@ -1,11 +1,14 @@
 package service
 
 import (
-	"crypto/sha1"
+	"crypto/rand"
 	"encoding/base64"
 )
 
-func GenerateCode(url string) string {
-	hash := sha1.Sum([]byte(url))
-	return base64.URLEncoding.EncodeToString(hash[:])[:6]
+func GenerateCode() (string, error) {
+	data := make([]byte, 9)
+	if _, err := rand.Read(data); err != nil {
+		return "", err
+	}
+	return base64.RawURLEncoding.EncodeToString(data), nil
 }

@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f3f6ef">
+  <meta name="description" content="Create clean, memorable short links and keep an eye on every click.">
+  <title>Linkline — make every link count</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/style.css">
+  <script src="/assets/app.js" defer></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="wordmark" href="/" aria-label="Linkline home">
+        <span class="brand-symbol" aria-hidden="true"><i></i><i></i></span>
+        <span>linkline<span class="wordmark-period">.</span></span>
+      </a>
+      <div class="topbar-status"><span class="status-dot"></span> LINK WORKSPACE</div>
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="page-title">
+        <div class="intro-copy">
+          <p class="eyebrow">A little less link. A lot more signal.</p>
+          <h1 id="page-title">Make every<br><span>link count.</span></h1>
+        </div>
+        <p class="intro-note">Short links, without the busywork.<br>One tidy place for the links you share.</p>
+      </section>
+
+      <section class="workspace" aria-label="Link workspace">
+        <div class="composer panel">
+          <div class="panel-heading">
+            <div>
+              <p class="section-kicker">NEW SHORT LINK <span>01</span></p>
+              <h2>Where should it go?</h2>
+            </div>
+            <span class="heading-mark" aria-hidden="true">↗</span>
+          </div>
+          <form id="shorten-form" novalidate>
+            <label for="destination">Destination URL</label>
+            <div class="input-wrap">
+              <span class="input-prefix" aria-hidden="true">https://</span>
+              <input id="destination" name="url" type="text" inputmode="url" placeholder="your-long-link.com/page" autocomplete="url" required maxlength="2048">
+            </div>
+            <div class="alias-row">
+              <label for="custom-alias">Custom ending <span>OPTIONAL</span></label>
+              <div class="alias-input-wrap">
+                <span id="alias-prefix">linkline.local/</span>
+                <input id="custom-alias" name="custom_alias" type="text" placeholder="your-name" maxlength="32" pattern="[A-Za-z0-9_-]{3,32}" autocomplete="off">
+              </div>
+            </div>
+            <div id="form-error" class="form-error" role="alert" hidden></div>
+            <button class="create-button" type="submit">
+              <span>Shorten this link</span><span aria-hidden="true">↗</span>
+            </button>
+          </form>
+          <p class="privacy-note"><span aria-hidden="true">●</span> Your links stay yours. No account needed.</p>
+        </div>
+
+        <aside class="signal-panel" aria-label="Workspace summary">
+          <div class="signal-topline"><span>YOUR SIGNAL</span><span class="signal-index">LL / 001</span></div>
+          <div class="signal-number" id="total-clicks">0</div>
+          <p class="signal-label">total visits across your links</p>
+          <div class="signal-rule"></div>
+          <div class="signal-bottom">
+            <div><span class="signal-small-label">LINKS CREATED</span><strong id="total-links">0</strong></div>
+            <span class="signal-arrow" aria-hidden="true">↗</span>
+          </div>
+          <div class="signal-decoration" aria-hidden="true">L</div>
+        </aside>
+      </section>
+
+      <section class="links-section" aria-labelledby="links-title">
+        <div class="links-heading">
+          <div>
+            <p class="section-kicker">YOUR COLLECTION <span>02</span></p>
+            <h2 id="links-title">Recent links <span id="link-count" class="count-pill">0</span></h2>
+          </div>
+          <button id="clear-history" class="quiet-button" type="button" hidden>Clear history <span aria-hidden="true">×</span></button>
+        </div>
+        <div id="links-list" class="links-list" aria-live="polite">
+          <div class="empty-state" id="empty-state">
+            <span class="empty-dash" aria-hidden="true">—</span>
+            <div><strong>No links in your collection yet.</strong><p>Your first short link will show up here.</p></div>
+          </div>
+        </div>
+        <p class="local-note">LINK HISTORY IS SAVED IN THIS BROWSER <span>·</span> CLICK COUNTS COME FROM YOUR SHORTENER</p>
+      </section>
+    </main>
+
+    <footer class="footer"><span>LINKLINE <span class="wordmark-period">●</span> BUILT FOR THE GOOD STUFF</span><a href="/metrics">SERVICE METRICS ↗</a></footer>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

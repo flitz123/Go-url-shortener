@@ -4,6 +4,8 @@ import (
 	"database/sql"
 	"log"
 	"net/http"
+	"os"
+	"time"
 
 	_ "github.com/lib/pq"
 
@@ -15,18 +17,28 @@ import (
 )
 
 func main() {
-	db, err := sql.Open("postgres", "postgres://user:password@db:5432/urlshort?sslmode=disable")
+	databaseURL := os.Getenv("DATABASE_URL")
+	if databaseURL == "" {
+		databaseURL = "postgres://user:password@localhost:5432/urlshort?sslmode=disable"
+	}
+	db, err := sql.Open("postgres", databaseURL)
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer db.Close()
 
 	repo := repository.NewPostgresRepo(db)
+	if err := repo.EnsureSchema(); err != nil {
+		log.Fatalf("initialize database schema: %v", err)
+	}
 	cache := cache.NewRedis()
 	handler := handlers.NewHandler(repo, cache)
 
 	server := &http.Server{
-		Addr:    ":8080",
-		Handler: router.Setup(handler),
+		Addr:              ":8080",
+		Handler:           router.Setup(handler),
+		ReadHeaderTimeout: 5 * time.Second,
+		IdleTimeout:       60 * time.Second,
 	}
 
 	log.Println("Server running on port 8080")
